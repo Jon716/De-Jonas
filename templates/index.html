@@ -165,9 +165,23 @@
         "O amor é a poesia dos sentidos."
     </div>
 
+    <!-- Tag de áudio para tocar a música -->
+    <audio id="musicPlayer" controls style="display: none;">
+        <source id="audioSource" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
     <script>
         function playMusic() {
-            fetch('/play_music');
+            var musicPlayer = document.getElementById('musicPlayer');
+            var audioSource = document.getElementById('audioSource');
+
+            // Atualiza a fonte para a URL correta da música
+            audioSource.src = '/play_music';
+            
+            // Recarrega o player de áudio com a nova fonte e começa a reprodução
+            musicPlayer.load();
+            musicPlayer.play();
         }
 
         // Função para criar pétalas aleatórias
