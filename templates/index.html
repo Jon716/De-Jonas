@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Jonas</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif; /* Fonte elegante */
+            background: linear-gradient(to bottom right, #f7a8b8, #ffccf5); /* Gradiente suave de rosa claro */
+            text-align: center;
+            padding: 50px;
+            background-size: cover; /* Cobertura total */
+            animation: fundoAnimado 5s infinite alternate; /* Animação suave do fundo */
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fundoAnimado {
+            0% {
+                background: linear-gradient(to bottom right, #f7a8b8, #ffccf5);
+            }
+            100% {
+                background: linear-gradient(to bottom right, #ff99cc, #ffb3d9);
+            }
+        }
+
+        /* Pétalas flutuantes */
+        @keyframes cairPétalas {
+            0% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Pétalas (flores e corações) */
+        .petala {
+            position: absolute;
+            animation: cairPétalas 8s linear infinite;
+            opacity: 0.8;
+            pointer-events: none;
+            font-size: 25px;
+            color: #ff0066;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Sombra */
+        }
+
+        .nova-petala {
+            position: absolute;
+            animation: cairPétalas 8s linear infinite;
+            opacity: 0.7;
+            pointer-events: none;
+            font-size: 20px;
+            color: #ff99cc;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Sombra */
+        }
+
+        /* Estilo do cartão */
+        .cartao {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: inline-block;
+            transition: transform 0.3s;
+            z-index: 10;
+        }
+
+        .cartao:hover {
+            transform: scale(1.05);
+        }
+
+        /* Estilos do coração */
+        #coracao {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff4d4d, #ff0000); /* Vermelho mais intenso */
+            transform: rotate(-45deg);
+            margin: 0 auto;
+            animation: pulsar 1.5s infinite;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.7); /* Brilho mais forte */
+        }
+
+        #coracao::before, #coracao::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff4d4d, #ff0000); /* Vermelho mais intenso */
+            border-radius: 50%;
+        }
+
+        /* Posicionando as duas partes do coração */
+        #coracao::before {
+            top: -50px;
+            left: 0;
+        }
+
+        #coracao::after {
+            left: 50px;
+            top: 0;
+        }
+
+        /* Animação de pulsação */
+        @keyframes pulsar {
+            0%, 100% {
+                transform: scale(1) rotate(-45deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(-45deg);
+            }
+        }
+
+        /* Estilo da mensagem */
+        .mensagem {
+            margin-top: 20px; /* Espaço acima da mensagem */
+            font-weight: bold; /* Texto em negrito */
+            color: #ff0066; /* Cor mais romântica */
+            font-size: 1.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        }
+
+        /* Estilo do botão */
+        button {
+            background-color: #ff0066; /* Cor do botão mais suave */
+            color: white; /* Texto branco */
+            border: none; /* Sem borda */
+            border-radius: 5px; /* Bordas arredondadas */
+            padding: 12px 30px; /* Espaçamento interno */
+            font-size: 18px; /* Tamanho da fonte */
+            cursor: pointer; /* Cursor de mão ao passar o mouse */
+            margin-top: 20px; /* Espaço acima do botão */
+            transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra do botão */
+        }
+
+        button:hover {
+            background-color: #cc0052; /* Cor mais escura ao passar o mouse */
+        }
+
+        /* Estilo da citação */
+        .citacao {
+            color: white; /* Texto branco */
+            font-size: 24px; /* Tamanho da fonte */
+            margin-top: 30px; /* Espaço acima da citação */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
+            font-style: italic; /* Estilo itálico */
+        }
+    </style>
+</head>
+<body>
+    <h1>De Jonas</h1>
+    <div class="cartao">
+        <div id="coracao"></div>
+        <p class="mensagem">Sinto muito a sua falta...</p>
+    </div>
+    <button onclick="playMusic()">Aperte com carinho</button>
+
+    <!-- Citação romântica -->
+    <div class="citacao">
+        "O amor é a poesia dos sentidos."
+    </div>
+
+    <script>
+        function playMusic() {
+            fetch('/play_music');
+        }
+
+        // Função para criar pétalas aleatórias
+        function criarPetalas() {
+            const quantidade = 20; // Número de pétalas
+            const container = document.body;
+
+            for (let i = 0; i < quantidade; i++) {
+                const petala = document.createElement('div');
+                const tipo = Math.random() > 0.5 ? 'petala' : 'nova-petala'; // Aleatoriamente escolhe entre coração ou flor
+                petala.classList.add(tipo);
+                petala.style.left = `${Math.random() * 100}%`; // Posição horizontal aleatória
+                petala.style.animationDuration = `${Math.random() * 4 + 6}s`; // Duração aleatória da animação
+                petala.style.animationDelay = `${Math.random() * 4}s`; // Atraso aleatório na animação
+
+                // Adicionando o conteúdo (flor ou coração) da pétala
+                petala.innerHTML = tipo === 'petala' ? '♡' : '✿';
+                container.appendChild(petala);
+            }
+        }
+
+        // Chama a função para criar as pétalas quando a página carregar
+        window.onload = criarPetalas;
+    </script>
+</body>
+</html>
